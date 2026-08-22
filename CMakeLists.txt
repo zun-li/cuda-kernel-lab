@@ -16,3 +16,6 @@ find_package(CUDAToolkit REQUIRED)
 
 add_executable(matmul0 matmul0.cu)
 target_link_libraries(matmul0 PRIVATE CUDA::cublas)
+
+add_executable(matmul1 matmul1.cu)
+target_link_libraries(matmul1 PRIVATE CUDA::cublas)
