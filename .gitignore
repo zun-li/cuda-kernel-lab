@@ -1,0 +1,89 @@
+# Build directories
+build/
+bin/
+lib/
+out/
+cmake-build-*/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# CUDA / C++ compiled files
+*.o
+*.obj
+*.lo
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+
+# CUDA intermediate / generated files
+*.ptx
+*.cubin
+*.fatbin
+*.gpu
+*.ii
+*.i
+*.su
+*.d
+*.depend
+
+# Debug / profiling output
+*.log
+*.nsys-rep
+*.qdrep
+*.sqlite
+*.nvvp
+
+# Coverage
+*.gcda
+*.gcno
+*.gcov
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Visual Studio
+.vs/
+Debug/
+Release/
+x64/
+x86/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+
+# macOS
+.DS_Store
+
+# Linux
+.core
+core
+core.*
+
+# Python (if scripts are used)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
