@@ -19,3 +19,6 @@ target_link_libraries(matmul0 PRIVATE CUDA::cublas)
 
 add_executable(matmul1 matmul1.cu)
 target_link_libraries(matmul1 PRIVATE CUDA::cublas)
+
+add_executable(matmul2 matmul2.cu)
+target_link_libraries(matmul2 PRIVATE CUDA::cublas)
