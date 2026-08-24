@@ -34,11 +34,12 @@ __global__ void mysgemm(int M, int N, int K, float alpha, float *A, float *B, fl
     float tmp[TM][TN] = {0.};
 
     for (int k = 0; k < K; k += BK) {
+#pragma unroll
         for (int i = 0; i < BM; i += a_tile_stride) {
             SA[(a_tile_row + i) * BK + a_tile_col] = 
                 A[(a_tile_row + i) * K + a_tile_col];
         }
-
+#pragma unroll
         for (int i = 0; i < BK; i += b_tile_stride) {
             SB[(b_tile_row + i) * BN + b_tile_col] = 
                 B[(b_tile_row + i) * N + b_tile_col];
@@ -49,8 +50,11 @@ __global__ void mysgemm(int M, int N, int K, float alpha, float *A, float *B, fl
         A += BK;
         B += BK * N;
 
+#pragma unroll
         for (int i = 0; i < BK; i ++) {
+#pragma unroll
             for (int m = 0; m < TM; m ++) {
+#pragma unroll
                 for (int n = 0; n < TN; n ++) {
                     tmp[m][n] += SA[(ty + m) * BK + i] * SB[tx + n + i * BN];
                 }
@@ -58,16 +62,11 @@ __global__ void mysgemm(int M, int N, int K, float alpha, float *A, float *B, fl
         }
 
         __syncthreads();
-
-          for (int m = 0; m < TM; m ++) {
-            for (int n = 0; n < TN; n ++) {
-                C[(ty + m) * N + tx + n] =
-                    alpha * tmp[m][n] + beta * C[(ty + m) * N + tx + n];
-            }
-        }
     }
 
+#pragma unroll
     for (int m = 0; m < TM; m ++) {
+#pragma unroll
         for (int n = 0; n < TN; n++) {
             C[(ty + m) * N + tx + n] =
                 alpha * tmp[m][n] + beta * C[(ty + m) * N + tx + n];
