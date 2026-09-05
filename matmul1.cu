@@ -15,8 +15,8 @@ __global__ void mysgemm(int M, int N, int K, float alpha, float *A, float *B, fl
     const int BM = BLOCK_SIZE;
     const int BK = BLOCK_SIZE;
 
-    __shared__ float SA[BM * BK];
-    __shared__ float SB[BK * BN];
+    __shared__ float As[BM * BK];
+    __shared__ float Bs[BK * BN];
 
     A = &A[by * BM * K];
     B = &B[bx * BN];
@@ -24,15 +24,15 @@ __global__ void mysgemm(int M, int N, int K, float alpha, float *A, float *B, fl
 
     float tmp = 0.0f;
     for (int k = 0; k < K; k += BK) {
-        SA[ty * BK + tx] = A[ty * K + tx];
-        SB[ty * BN + tx] = B[ty * N + tx];
+        As[ty * BK + tx] = A[ty * K + tx];
+        Bs[ty * BN + tx] = B[ty * N + tx];
         __syncthreads();
 
         A += BK;
         B += BK * N;
 
         for (int i = 0; i < BK; i ++) {
-            tmp += SA[ty * BK + i] * SB[i * BN + tx];
+            tmp += As[ty * BK + i] * Bs[i * BN + tx];
         }
         __syncthreads();
     }

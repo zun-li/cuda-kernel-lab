@@ -5,8 +5,8 @@
 #include <cublas_v2.h>
 
 __global__ void mysgemm(int M, int N, int K, float alpha, float *A, float *B, float beta, float *C) {
-    int gx = blockDim.x * blockIdx.x + threadIdx.x; // 全局x
-    int gy = blockDim.y * blockIdx.y + threadIdx.y; // 全局y
+    int gx = blockDim.x * blockIdx.x + threadIdx.x;
+    int gy = blockDim.y * blockIdx.y + threadIdx.y;
 
     if (gx >= N || gy >= M) return;
 
